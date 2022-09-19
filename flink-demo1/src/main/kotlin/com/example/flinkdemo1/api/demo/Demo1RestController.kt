@@ -1,5 +1,6 @@
 package com.example.flinkdemo1.api.demo
 
+import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
