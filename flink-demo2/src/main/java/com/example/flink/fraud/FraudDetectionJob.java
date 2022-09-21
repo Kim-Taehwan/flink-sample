@@ -6,7 +6,7 @@ import com.example.flink.fraud.operator.FraudDetector;
 import com.example.flink.fraud.sink.AlertSink;
 import com.example.flink.fraud.source.TransactionSource;
 import org.apache.flink.streaming.api.datastream.DataStream;
-import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment;
+import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
 public class FraudDetectionJob {
 

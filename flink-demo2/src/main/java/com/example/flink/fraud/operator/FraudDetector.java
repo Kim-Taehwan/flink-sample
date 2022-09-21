@@ -3,6 +3,7 @@ package com.example.flink.fraud.operator;
 
 import com.example.flink.fraud.entity.Alert;
 import com.example.flink.fraud.entity.Transaction;
+import com.example.flink.fraud.utils.DateUtil;
 import org.apache.flink.api.common.state.ValueState;
 import org.apache.flink.api.common.state.ValueStateDescriptor;
 import org.apache.flink.api.common.typeinfo.Types;
@@ -73,7 +74,7 @@ public class FraudDetector extends KeyedProcessFunction<Long, Transaction, Alert
 
             long timer = context.timerService().currentProcessingTime() + ONE_MINUTE;
             //date time
-            System.out.println("setTimer : "+DateUtil.longToDate(timer));
+            System.out.println("setTimer : "+ DateUtil.longToDate(timer));
             //플래그가 로 설정될 때마다 true 미래의 1분 타이머도 설정
             context.timerService().registerProcessingTimeTimer(timer);
 
