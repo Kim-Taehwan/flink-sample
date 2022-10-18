@@ -43,5 +43,6 @@ public class SpendReport {
                 ")");
 
         Table transactions = tEnv.from("transactions");
+        report(transactions).executeInsert("spend_report");
     }
 }
