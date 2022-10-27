@@ -1,3 +1,337 @@
 hello log
 http://test1234
 https://testhttps
+testdkdkdkd
+파일과 디렉토리
+
+ : IO는 파일의 속성 정보를 읽기 위해 File 클래스를 제공함.
+
+  NIO는 좀 더 다양한 파일의 속성 정보를 제공해주는 클래스와 인터페이스를
+
+  java.nio.file, java.nio.file.attribute 패키지에서 제공함.
+
+
+
+경로 정의(Path)
+
+ : Path는 IO의 java.io.File 클래스에 대응되는 NIO 인터페이스임.
+
+NIO의 API에서 파일의 경로를 지정하기 위해 Path를 사용하므로 Path의 사용법을 알아야함.
+
+
+
+Path 구현 객체는 java.nio.file.Paths 클래스의 get() 정적 메서드를 호출하여 얻는다.
+
+Path path = Paths.get(String first, String....more)
+
+Path path = Paths.get(URI uri);
+
+get()의 매개값은 파일의 경로이다. 문자열로 지정할 수도, URI 객체로 지정할 수도
+
+문자열의 경우 전체 경로를 한꺼번에 지정하거나 상위 디렉토리와 하위 디렉토리를 나열하여도 좋음.
+
+
+
+ex) "C:\Temp\dir\file.txt"의 경로를 이용해 Path를 얻는 방법
+
+Path path = Paths.get("C:\Temp\dir\file.txt");
+
+Path path = Paths.get("C:\Temp\dir", "file.txt");
+
+Path path = Paths.get("C:","Temp","dir", "file.txt");
+
+
+
+파일의 경로는 절대 경로와 상대 경로를 사용가능.
+
+Path 인터페이스에는 파일 경로를 얻을 수 있는 여러 정보를 제공해주는 메서드가 있음.
+
+
+ 리턴 타입
+
+메서드(매개변수)
+
+설명
+
+ int
+
+ compareTo(Path other)
+
+ 파일 경로가 동일하면 0을 리턴,
+
+ 상위 경로면 음수,
+
+ 하위 경로면 양수 리턴,
+
+ 음스와 양수 값의 차이나는 문자열 수
+
+ Path
+
+ getFileName()
+
+ 부모 경로를 제외한 파일 또는 디렉토리 이름만 가진
+
+ Path 리턴
+
+ FileSystem
+
+ getFileSystem()
+
+ FileSystem 객체 리턴
+
+ Path
+
+ getName(int index)
+
+ C:\Temp\dir\file.txt 일 경우
+
+ index가 0이면 "Temp"의 Path 객체 리턴
+
+ index가 1이면 "dir"의 Path 객체 리턴
+
+ index가 2이면 "file.txt"의 Path 객체 리턴
+
+ int
+
+ getNameCount()
+
+ 중첩 경로 수, C:\Temp\dir\file.txt일 경우 3을 리턴
+
+ Path
+
+ getParent()
+
+ 바로 위 부모  폴더의 Path 리턴
+
+ Path
+
+ getRoot()
+
+ 루트 디렉토리의 Path 리턴
+
+ Iterator<Path>
+
+ iterator()
+
+ 경로에 있는 모든 디렉토리와 파일을 Path 객체로
+
+ 생성 후 반복자 리턴
+
+ Path
+
+ normalize()
+
+ 상대 경로로 표기할 때 불필요한 요소 제거
+
+ WatchKey
+
+ register(...)
+
+ WatchService를 등록
+
+ File
+
+ toFile()
+
+ java.io.file 객체로 리턴
+
+ String
+
+ toString()
+
+ 파일 경로를 문자열로 리턴
+
+ URI
+
+ tiUri()
+
+ 파일 경로를 URI 객체로 리턴
+
+
+
+
+
+예제)
+
+import java.nio.file.Path;
+
+import java.nio.file.Paths;
+
+import java.util.Iterator;
+
+
+
+public class PathExample {
+
+public static void main(String[] args) throws Exception {
+
+Path path = Paths.get("src/sec02/exam01_path/PathExample.java");
+
+System.out.println("[파일명] " + path.getFileName());
+
+System.out.println("[부모 디렉토리명]: " + path.getParent().getFileName());
+
+System.out.println("중첩 경로수: " + path.getNameCount());
+
+
+System.out.println();
+
+for(int i=0; i<path.getNameCount(); i++) {
+
+System.out.println(path.getName(i));
+
+}
+
+
+System.out.println();
+
+Iterator<Path> iterator = path.iterator();
+
+while(iterator.hasNext()) {
+
+Path temp = iterator.next();
+
+System.out.println(temp.getFileName());
+
+}
+
+}
+
+}
+
+
+
+
+
+
+#이것이자바다
+#자바
+#NIO
+#Path
+#경로정의
+ 6
+ 공감한 사람 보러가기댓글 0공유하기
+알통몬
+알통몬
+IT·컴퓨터
+자바를 사랑하는 알통몬입니다. 이웃신청 다 받아요^^ 티스토리 블로그도 해요. https://altongmon.tistory.com 문의 E-mail: rain483@naver.com kakaoTalk: psk0918
+
+이웃추가
+
+이 블로그
+JAVA
+ 카테고리 글
+[ JAVA ] - NIO(2) : 파일과 디렉토리(3) - 파일 속성 읽기 / 파일, 디렉토리 생성 과 삭제
+2016. 3. 2.
+ 3
+ 댓글 0
+[ JAVA ] - NIO(2) : 파일과 디렉토리(2) - 파일 시스템 정보(FileSystem)
+2016. 3. 1.
+ 7
+ 댓글 0
+[ JAVA ] - NIO(2) : 파일과 디렉토리(1) - 경로 정의(Path)
+2016. 3. 1.
+ 6
+ 댓글 0
+[ JAVA ] - NIO(1) : IO 와 NIO의 차이점, IO 와 NIO의 선택
+2016. 2. 24.
+ 12
+ 댓글 1
+[ JAVA ] - UDP 네트워킹(2) : 수신자 구현
+2016. 2. 24.
+ 7
+ 댓글 0
+이전
+
+다음
+이 블로그의
+#이것이자바다
+ 다른 글
+JavaFX + Network 경진대회 참가~~
+2016. 5. 2.
+ 17
+ 댓글 8
+[ JAVA ] - NIO(9) : UDP 채널 - 발신자 / 수신자 / 통신
+2016. 3. 13.
+ 21
+ 댓글 0
+동영상
+[ JAVA ] - NIO(8) : TCP 비동기 채널(4) - 채팅 클라이언트 구현(2)
+2016. 3. 12.
+ 12
+ 댓글 0
+[ JAVA ] - NIO(8) : TCP 비동기 채널(4) - 채팅 클라이언트 구현(1)
+2016. 3. 12.
+ 9
+ 댓글 4
+[ JAVA ] - NIO(8) : TCP 비동기 채널(3) - 채팅 서버 구현(2)
+2016. 3. 12.
+ 9
+ 댓글 0
+[ JAVA ] - NIO(8) : TCP 비동기 채널(2) - 비동기 서버소켓 채널 / 비동기 소켓 채널 / 비동기 소켓 채널 데이터 통신
+2016. 3. 12.
+ 8
+ 댓글 0
+[ JAVA ] - NIO(7) : TCP 넌블로킹 채널(5) - 채팅 서버 구현 (2)
+2016. 3. 11.
+ 7
+ 댓글 0
+[ JAVA ] - NIO(7) : TCP 넌블로킹 채널(5) - 채팅 서버 구현
+2016. 3. 11.
+ 7
+ 댓글 0
+[ JAVA ] - NIO(7) : TCP 넌블로킹 채널(4) - 채널 작업 처리
+2016. 3. 10.
+ 14
+ 댓글 0
+[ JAVA ] - NIO(7) : TCP 넌블로킹 채널(3) - 선택된 키셋
+2016. 3. 10.
+ 8
+ 댓글 0
+[ JAVA ] - NIO(7) : TCP 넌블로킹 채널(2) - 셀렉터 생성과 등록
+2016. 3. 10.
+ 9
+ 댓글 0
+[ JAVA ] - NIO(7) : TCP 넌블로킹 채널(1) - 넌블로킹 방식의 특징
+2016. 3. 10.
+ 7
+ 댓글 0
+[ JAVA ] - NIO(6) : TCP 블로킹 채널(4) - 블로킹과 인터럽트
+2016. 3. 9.
+ 6
+ 댓글 0
+동영상
+[ JAVA ] - NIO(6) : TCP 블로킹 채널(3) - 채팅 클라이언트 구현(2)
+2016. 3. 9.
+ 6
+ 댓글 0
+[ JAVA ] - NIO(6) : TCP 블로킹 채널(3) - 채팅 서버 구현(1)
+2016. 3. 9.
+ 4
+ 댓글 0
+[ JAVA ] - NIO(8) : TCP 비동기 채널(3) - 채팅 서버 구현(1)
+2016. 3. 12.
+ 8
+ 댓글 0
+[ JAVA ] - NIO(8) : TCP 비동기 채널(1) - 비동기 채널의 특징 / 비동기 채널 그룹
+2016. 3. 12.
+ 8
+ 댓글 0
+[ JAVA ] - NIO(7) : TCP 넌블로킹 채널(6) - 채팅 클라이언트 구현
+2016. 3. 11.
+ 7
+ 댓글 0
+[ JAVA ] - NIO(6) : TCP 블로킹 채널(3) - 채팅 클라이언트 구현(1)
+2016. 3. 9.
+ 3
+ 댓글 0
+[ JAVA ] - NIO(6) : TCP 블로킹 채널(3) - 채팅 서버 구현(2)
+2016. 3. 9.
+ 3
+ 댓글 0
+이전
+
+다음
+ 맨 위로
+
+PC버전으로 보기
